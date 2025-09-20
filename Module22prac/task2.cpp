@@ -86,7 +86,7 @@ public:
 
 	void print() {
 		if (isEmpty()) {
-			throw std::underflow_error("Stack is empty\n");
+			std::cout << "Empty" << std::endl;
 			return;
 		}
 		std::cout << "Stack elements: ";
@@ -155,14 +155,6 @@ int main()
 	try {
 		std::cout << "Attempting to peek top element of empty stack." << std::endl;
 		stack.peek();
-	}
-	catch (const std::exception& e) {
-		std::cout << "Error: " << e.what() << std::endl;
-	}
-
-	try {
-		CharStack hugeStack(1000000000);
-		std::cout << "Huge stack created successfully." << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << "Error: " << e.what() << std::endl;
