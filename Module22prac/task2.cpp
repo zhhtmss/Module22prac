@@ -86,8 +86,7 @@ public:
 
 	void print() {
 		if (isEmpty()) {
-			std::cout << "Empty" << std::endl;
-			return;
+			throw std::underflow_error("Stack is empty\n");
 		}
 		std::cout << "Stack elements: ";
 		for (int i = 0; i <= top; ++i) {
