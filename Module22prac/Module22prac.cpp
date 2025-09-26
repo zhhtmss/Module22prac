@@ -55,15 +55,24 @@ int main()
         nullptr
     };
 
-    for (int i = 0; i < 11; i++) {
+
+    int numCases = sizeof(testCases) / sizeof(testCases[0]);
+    for (int i = 0; i < numCases; i++) {
         try {
 			int result = stringToInt(testCases[i]);
 			std::cout << "String: " << testCases[i] 
                 << " -> Integer: " << result << std::endl;
 		}
         catch (const std::exception& e) {
-            std::cout << "String: " << testCases[i]
-                << " -> Error: " << e.what() << std::endl;
+            if (testCases[i] != nullptr)
+            {
+                std::cout << "String: \"" << testCases[i]
+                    << "\" -> Error: " << e.what() << std::endl;
+            }
+            else
+            {
+                std::cout << "String: nullptr -> Error: " << e.what() << std::endl;
+            }
         }
     }
 }
