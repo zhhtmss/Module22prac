@@ -6,15 +6,19 @@ private:
 	char* stack;
 	int top;
 	int capacity;
+
+	void allocateMemory() {
+		stack = new char[capacity];
+		if (!stack) {
+			throw std::runtime_error("Memory allocation failed");
+		}
+	}
 public:
 	CharStack(int size = 100) : capacity(size), top(-1) {
 		if (size <= 0) {
 			throw std::invalid_argument("Size must be positive");
 		}
-		stack = new char[capacity];
-		if (!stack) {
-			throw std::runtime_error("Memory allocation failed");
-		}
+		allocateMemory();
 	}
 
 	~CharStack() {
@@ -22,10 +26,7 @@ public:
 	}
 
 	CharStack(const CharStack& other) : capacity(other.capacity), top(other.top) {
-		stack = new char[capacity];
-		if (!stack) {
-			throw std::runtime_error("Memory allocation failed");
-		}
+		allocateMemory();
 		for (int i = 0; i <= top; ++i) {
 			stack[i] = other.stack[i];
 		}
@@ -36,10 +37,7 @@ public:
 			delete[] stack;
 			capacity = other.capacity;
 			top = other.top;
-			stack = new char[capacity];
-			if (!stack) {
-				throw std::runtime_error("Memory allocation failed");
-			}
+			allocateMemory();
 			for (int i = 0; i <= top; ++i) {
 				stack[i] = other.stack[i];
 			}
@@ -73,7 +71,7 @@ public:
 		return top == capacity - 1;
 	}
 
-	void cleer() {
+	void clear() {
 		top = -1;
 	}
 
@@ -118,7 +116,7 @@ int main()
 	stack.print();
 
 	std::cout << "Clearing stack." << std::endl;
-	stack.cleer();
+	stack.clear();
 	std::cout << "Count after clearing: " << stack.count() << std::endl;
 	std::cout << "Is Empty after clearing: " << (stack.isEmpty() ? "Yes" : "No") << std::endl;
 	stack.print();
@@ -159,4 +157,5 @@ int main()
 	catch (const std::exception& e) {
 		std::cout << "Error: " << e.what() << std::endl;
 	}
+
 }
